@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ubuntu-job
+  labels:
+    app: ubuntu-app
+spec:
+  template:
+    metadata:
+      labels:
+        app: ubuntu-app
+    spec:
+      containers:
+      - name: ubuntu-container
+        image: localhost:5000/ubuntu-app:latest
+        imagePullPolicy: Always
+        command: ["/bin/bash", "-c", "/app/start.sh"]
+        volumeMounts:
+        - name: host-volume
+          mountPath: /hostPath
+      restartPolicy: Never
+      volumes:
+      - name: host-volume
+        hostPath:
+          path: /hostPath
+  backoffLimit: 4
