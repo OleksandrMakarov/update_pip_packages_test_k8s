@@ -1,0 +1,173 @@
+update-pip-packages version: 0.1.5.3
+update-pip-packages version: 0.1.5.3
+usage: update-pip-packages [-h] [--pip] [--app] [-v]
+
+Update pip and app packages
+
+options:
+  -h, --help     show this help message and exit
+  --pip          Update pip packages
+  --app          Update app packages
+  -v, --version  Display the version of the package
+usage: update-pip-packages [-h] [--pip] [--app] [-v]
+
+Update pip and app packages
+
+options:
+  -h, --help     show this help message and exit
+  --pip          Update pip packages
+  --app          Update app packages
+  -v, --version  Display the version of the package
+Updating apt packages...
+Hit:1 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu jammy InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+Reading package lists...
+Building dependency tree...
+Reading state information...
+4 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+
+Apt update completed successfully
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Calculating upgrade...
+The following packages will be upgraded:
+  libgssapi-krb5-2 libk5crypto3 libkrb5-3 libkrb5support0
+4 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Need to get 620 kB of archives.
+After this operation, 0 B of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libk5crypto3 amd64 1.19.2-2ubuntu0.2 [86.3 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libkrb5support0 amd64 1.19.2-2ubuntu0.2 [32.3 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libkrb5-3 amd64 1.19.2-2ubuntu0.2 [357 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgssapi-krb5-2 amd64 1.19.2-2ubuntu0.2 [145 kB]
+Fetched 620 kB in 1s (544 kB/s)
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 16140 files and directories currently installed.)
+Preparing to unpack .../libk5crypto3_1.19.2-2ubuntu0.2_amd64.deb ...
+Unpacking libk5crypto3:amd64 (1.19.2-2ubuntu0.2) over (1.19.2-2ubuntu0.1) ...
+Setting up libk5crypto3:amd64 (1.19.2-2ubuntu0.2) ...
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 16140 files and directories currently installed.)
+Preparing to unpack .../libkrb5support0_1.19.2-2ubuntu0.2_amd64.deb ...
+Unpacking libkrb5support0:amd64 (1.19.2-2ubuntu0.2) over (1.19.2-2ubuntu0.1) ...
+Setting up libkrb5support0:amd64 (1.19.2-2ubuntu0.2) ...
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 16140 files and directories currently installed.)
+Preparing to unpack .../libkrb5-3_1.19.2-2ubuntu0.2_amd64.deb ...
+Unpacking libkrb5-3:amd64 (1.19.2-2ubuntu0.2) over (1.19.2-2ubuntu0.1) ...
+Setting up libkrb5-3:amd64 (1.19.2-2ubuntu0.2) ...
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 16140 files and directories currently installed.)
+Preparing to unpack .../libgssapi-krb5-2_1.19.2-2ubuntu0.2_amd64.deb ...
+Unpacking libgssapi-krb5-2:amd64 (1.19.2-2ubuntu0.2) over (1.19.2-2ubuntu0.1) ...
+Setting up libgssapi-krb5-2:amd64 (1.19.2-2ubuntu0.2) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.1) ...
+
+
+Apt packages updated successfully.
+
+Requirement already satisfied: pip in /usr/lib/python3/dist-packages (22.0.2)
+Collecting pip
+  Downloading pip-23.1.2-py3-none-any.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 7.6 MB/s eta 0:00:00
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 22.0.2
+    Not uninstalling pip at /usr/lib/python3/dist-packages, outside environment /usr
+    Can't uninstall 'pip'. No files were found to uninstall.
+Successfully installed pip-23.1.2
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+Checking for pip updates...
+Updating pip from version 22.0.2 to version 23.1.2...
+Pip updated successfully.
+Checking for available pip package updates...
+Updating pip packages...
+setuptools updated successfully.
+
+wheel updated successfully.
+
+Pip packages update completed.
