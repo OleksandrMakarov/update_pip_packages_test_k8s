@@ -108,7 +108,7 @@ RUN chmod +x /app/start.sh
 
 ```
 
-## Create `deployment.yaml` using a `Job` resource
+## Create `job.yaml` using a `Job` resource
 
 ```yaml
 apiVersion: batch/v1
@@ -252,7 +252,7 @@ docker push 192.168.59.100:5000/ubuntu-app:latest
 docker push localhost:5000/ubuntu-app:latest
 
 # Apply config and run job
-kubectl apply -f ./kubernetes/ubuntu/deployment.yaml
+kubectl apply -f ./kubernetes/ubuntu/job.yaml
 ```
 
 ## Useful commands
