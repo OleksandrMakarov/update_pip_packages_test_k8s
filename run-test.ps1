@@ -1,6 +1,8 @@
 param (
     [switch]$ubuntu,
     [switch]$centos7,
+    [switch]$centos9,
+    [switch]$fedora,
     [switch]$all,
     [switch]$help
 )
@@ -12,6 +14,8 @@ Usage: .\run-test.ps1 [options]
 Options:
     -ubuntu     Run the test for Ubuntu.
     -centos7    Run the test for CentOS 7.
+    -centos9    Run the test for CentOS 9.
+    -fedora     Run the test for Fedora.
     -all        Run the test for all containers.
     -help       Show this help message.
 "@
@@ -22,7 +26,7 @@ if ($help) {
     exit
 }
 
-if (!$ubuntu -and !$centos7 -and !$all) {
+if (!$ubuntu -and !$centos7 -and !$centos9 -and !$fedora -and !$all) {
     Write-Host "No options specified. Run .\run-test.ps1 -help for usage instructions."
     exit
 }
@@ -33,7 +37,8 @@ if ($null -eq (minikube status | Select-String -Pattern "host: Running")) {
     minikube start
     Write-Host "Waiting for minikube and local registry to start up..."
     Start-Sleep -Seconds 60
-} else {
+}
+else {
     Write-Host "Minikube is already running."
 }
 
@@ -82,3 +87,44 @@ if ($centos7 -or $all) {
     Write-Host "Applying Kubernetes job for CentOS 7..."
     kubectl apply -f ./kubernetes/centos7/job.yaml
 }
+
+if ($centos9 -or $all) {
+    # Delete Job if it exists
+    if ($null -ne (kubectl get jobs | Select-String -Pattern "centos9-job")) {
+        Write-Host "Deleting existing centos9-job..."
+        kubectl delete job centos9-job
+    }
+
+    # Build Docker image
+    Write-Host "Building Docker image for CentOS 9..."
+    docker build -t localhost:5000/centos9-app:latest -f ./kubernetes/centos9/Dockerfile .
+
+    # Push Docker image to the registry
+    Write-Host "Pushing Docker image for CentOS 9 to registry..."
+    docker push localhost:5000/centos9-app:latest
+
+    # Apply Kubernetes Job
+    Write-Host "Applying Kubernetes job for CentOS 9..."
+    kubectl apply -f ./kubernetes/centos9/job.yaml
+}
+
+if ($fedora -or $all) {
+    # Delete Job if it exists
+    if ($null -ne (kubectl get jobs | Select-String -Pattern "fedora-job")) {
+        Write-Host "Deleting existing fedora-job..."
+        kubectl delete job fedora-job
+    }
+
+    # Build Docker image
+    Write-Host "Building Docker image for Fedora..."
+    docker build -t localhost:5000/fedora-app:latest -f ./kubernetes/fedora/Dockerfile .
+
+    # Push Docker image to the registry
+    Write-Host "Pushing Docker image for Fedora to registry..."
+    docker push localhost:5000/fedora-app:latest
+
+    # Apply Kubernetes Job
+    Write-Host "Applying Kubernetes job for Fedora..."
+    kubectl apply -f ./kubernetes/fedora/job.yaml
+}
+

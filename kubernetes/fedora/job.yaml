@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fedora-job
+  labels:
+    app: fedora-app
+spec:
+  template:
+    metadata:
+      labels:
+        app: fedora-app
+    spec:
+      containers:
+      - name: fedora-container
+        image: localhost:5000/fedora-app:latest
+        imagePullPolicy: Always
+        command: ["/bin/bash", "-c", "/app/start.sh"]
+        volumeMounts:
+        - name: host-volume
+          mountPath: /hostPath
+      restartPolicy: Never
+      volumes:
+      - name: host-volume
+        hostPath:
+          path: /hostPath
+  backoffLimit: 4

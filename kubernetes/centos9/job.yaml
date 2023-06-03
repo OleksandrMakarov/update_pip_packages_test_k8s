@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: centos9-job
+  labels:
+    app: centos9-app
+spec:
+  template:
+    metadata:
+      labels:
+        app: centos9-app
+    spec:
+      containers:
+      - name: centos9-container
+        image: localhost:5000/centos9-app:latest
+        imagePullPolicy: Always
+        command: ["/bin/bash", "-c", "/app/start.sh"]
+        volumeMounts:
+        - name: host-volume
+          mountPath: /hostPath
+      restartPolicy: Never
+      volumes:
+      - name: host-volume
+        hostPath:
+          path: /hostPath
+  backoffLimit: 4
