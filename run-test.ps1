@@ -1,3 +1,51 @@
+<#
+.SYNOPSIS
+    A script to build Docker images and run Kubernetes jobs for application testing in various Linux distributions.
+
+.DESCRIPTION
+    This script allows you to build Docker images and run Kubernetes jobs for testing in different Linux distributions,
+    such as Ubuntu, CentOS 7, CentOS 9, Fedora, Arch Linux, and openSUSE. It supports running tests for individual 
+    distributions as well as running tests for all supported distributions.
+
+.PARAMETER ubuntu
+    Specifies that the test should be run for Ubuntu.
+
+.PARAMETER centos7
+    Specifies that the test should be run for CentOS 7.
+
+.PARAMETER centos9
+    Specifies that the test should be run for CentOS 9.
+
+.PARAMETER fedora
+    Specifies that the test should be run for Fedora.
+
+.PARAMETER archlinux
+    Specifies that the test should be run for Arch Linux.
+
+.PARAMETER opensuse
+    Specifies that the test should be run for openSUSE.
+
+.PARAMETER all
+    Specifies that the test should be run for all supported Linux distributions.
+
+.PARAMETER help
+    Displays the help message.
+
+.EXAMPLE
+    .\run-test.ps1 -ubuntu
+
+    This example runs the test for Ubuntu.
+
+.EXAMPLE
+    .\run-test.ps1 -all
+
+    This example runs the test for all supported Linux distributions.
+
+.NOTES
+    This script requires minikube, kubectl, and Docker to be installed.
+    It also assumes that the Kubernetes configuration files and Dockerfiles are located in a specific directory structure.
+#>
+
 param (
     [switch]$ubuntu,
     [switch]$centos7,
