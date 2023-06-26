@@ -4,6 +4,7 @@ param (
     [switch]$centos9,
     [switch]$fedora,
     [switch]$archlinux,
+    [switch]$opensuse,
     [switch]$all,
     [switch]$help
 )
@@ -13,13 +14,14 @@ function Show-Help {
 Usage: .\run-test.ps1 [options]
 
 Options:
-    -ubuntu       Run the test for Ubuntu.
-    -centos7      Run the test for CentOS 7.
-    -centos9      Run the test for CentOS 9.
-    -fedora       Run the test for Fedora.
-    -archlinux    Run the test for Arch Linux.
-    -all          Run the test for all containers.
-    -help         Show this help message.
+    -ubuntu     Run the test for Ubuntu.
+    -centos7    Run the test for CentOS 7.
+    -centos9    Run the test for CentOS 9.
+    -fedora     Run the test for Fedora.
+    -archlinux  Run the test for Arch Linux.
+    -opensuse   Run the test for openSUSE.
+    -all        Run the test for all containers.
+    -help       Show this help message.
 "@
 }
 
@@ -28,7 +30,7 @@ if ($help) {
     exit
 }
 
-if (!$ubuntu -and !$centos7 -and !$centos9 -and !$fedora -and !$archlinux -and !$all) {
+if (!$ubuntu -and !$centos7 -and !$centos9 -and !$fedora -and !$archlinux -and !$opensuse -and !$all) {
     Write-Host "No options specified. Run .\run-test.ps1 -help for usage instructions."
     exit
 }
@@ -132,4 +134,20 @@ if ($archlinux -or $all) {
 
     Write-Host "Applying Kubernetes job for Arch Linux..."
     kubectl apply -f ./kubernetes/archlinux/job.yaml
+}
+
+if ($opensuse -or $all) {
+    if ($null -ne (kubectl get jobs | Select-String -Pattern "opensuse-job")) {
+        Write-Host "Deleting existing opensuse-job..."
+        kubectl delete job opensuse-job
+    }
+
+    Write-Host "Building Docker image for openSUSE..."
+    docker build -t localhost:5000/opensuse-app:latest -f ./kubernetes/opensuse/Dockerfile .
+
+    Write-Host "Pushing Docker image for openSUSE to registry..."
+    docker push localhost:5000/opensuse-app:latest
+
+    Write-Host "Applying Kubernetes job for openSUSE..."
+    kubectl apply -f ./kubernetes/opensuse/job.yaml
 }

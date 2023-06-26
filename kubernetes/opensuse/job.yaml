@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: opensuse-job
+  labels:
+    app: opensuse-app
+spec:
+  template:
+    metadata:
+      labels:
+        app: opensuse-app
+    spec:
+      containers:
+      - name: opensuse-container
+        image: localhost:5000/opensuse-app:latest
+        imagePullPolicy: Always
+        command: ["/bin/bash", "-c", "/app/start.sh"]
+        volumeMounts:
+        - name: host-volume
+          mountPath: /hostPath
+      restartPolicy: Never
+      volumes:
+      - name: host-volume
+        hostPath:
+          path: /hostPath
+  backoffLimit: 4
