@@ -3,6 +3,7 @@ param (
     [switch]$centos7,
     [switch]$centos9,
     [switch]$fedora,
+    [switch]$archlinux,
     [switch]$all,
     [switch]$help
 )
@@ -12,12 +13,13 @@ function Show-Help {
 Usage: .\run-test.ps1 [options]
 
 Options:
-    -ubuntu     Run the test for Ubuntu.
-    -centos7    Run the test for CentOS 7.
-    -centos9    Run the test for CentOS 9.
-    -fedora     Run the test for Fedora.
-    -all        Run the test for all containers.
-    -help       Show this help message.
+    -ubuntu       Run the test for Ubuntu.
+    -centos7      Run the test for CentOS 7.
+    -centos9      Run the test for CentOS 9.
+    -fedora       Run the test for Fedora.
+    -archlinux    Run the test for Arch Linux.
+    -all          Run the test for all containers.
+    -help         Show this help message.
 "@
 }
 
@@ -26,7 +28,7 @@ if ($help) {
     exit
 }
 
-if (!$ubuntu -and !$centos7 -and !$centos9 -and !$fedora -and !$all) {
+if (!$ubuntu -and !$centos7 -and !$centos9 -and !$fedora -and !$archlinux -and !$all) {
     Write-Host "No options specified. Run .\run-test.ps1 -help for usage instructions."
     exit
 }
@@ -69,62 +71,65 @@ if ($ubuntu -or $all) {
 }
 
 if ($centos7 -or $all) {
-    # Delete Job if it exists
     if ($null -ne (kubectl get jobs | Select-String -Pattern "centos7-job")) {
         Write-Host "Deleting existing centos7-job..."
         kubectl delete job centos7-job
     }
 
-    # Build Docker image
     Write-Host "Building Docker image for CentOS 7..."
     docker build -t localhost:5000/centos7-app:latest -f ./kubernetes/centos7/Dockerfile .
 
-    # Push Docker image to the registry
     Write-Host "Pushing Docker image for CentOS 7 to registry..."
     docker push localhost:5000/centos7-app:latest
 
-    # Apply Kubernetes Job
     Write-Host "Applying Kubernetes job for CentOS 7..."
     kubectl apply -f ./kubernetes/centos7/job.yaml
 }
 
 if ($centos9 -or $all) {
-    # Delete Job if it exists
     if ($null -ne (kubectl get jobs | Select-String -Pattern "centos9-job")) {
         Write-Host "Deleting existing centos9-job..."
         kubectl delete job centos9-job
     }
 
-    # Build Docker image
     Write-Host "Building Docker image for CentOS 9..."
     docker build -t localhost:5000/centos9-app:latest -f ./kubernetes/centos9/Dockerfile .
 
-    # Push Docker image to the registry
     Write-Host "Pushing Docker image for CentOS 9 to registry..."
     docker push localhost:5000/centos9-app:latest
 
-    # Apply Kubernetes Job
     Write-Host "Applying Kubernetes job for CentOS 9..."
     kubectl apply -f ./kubernetes/centos9/job.yaml
 }
 
 if ($fedora -or $all) {
-    # Delete Job if it exists
     if ($null -ne (kubectl get jobs | Select-String -Pattern "fedora-job")) {
         Write-Host "Deleting existing fedora-job..."
         kubectl delete job fedora-job
     }
 
-    # Build Docker image
     Write-Host "Building Docker image for Fedora..."
     docker build -t localhost:5000/fedora-app:latest -f ./kubernetes/fedora/Dockerfile .
 
-    # Push Docker image to the registry
     Write-Host "Pushing Docker image for Fedora to registry..."
     docker push localhost:5000/fedora-app:latest
 
-    # Apply Kubernetes Job
     Write-Host "Applying Kubernetes job for Fedora..."
     kubectl apply -f ./kubernetes/fedora/job.yaml
 }
 
+if ($archlinux -or $all) {
+    if ($null -ne (kubectl get jobs | Select-String -Pattern "archlinux-job")) {
+        Write-Host "Deleting existing archlinux-job..."
+        kubectl delete job archlinux-job
+    }
+
+    Write-Host "Building Docker image for Arch Linux..."
+    docker build -t localhost:5000/archlinux-app:latest -f ./kubernetes/archlinux/Dockerfile .
+
+    Write-Host "Pushing Docker image for Arch Linux to registry..."
+    docker push localhost:5000/archlinux-app:latest
+
+    Write-Host "Applying Kubernetes job for Arch Linux..."
+    kubectl apply -f ./kubernetes/archlinux/job.yaml
+}

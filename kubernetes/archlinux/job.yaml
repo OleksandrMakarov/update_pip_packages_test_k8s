@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: archlinux-job
+  labels:
+    app: archlinux-app
+spec:
+  template:
+    metadata:
+      labels:
+        app: archlinux-app
+    spec:
+      containers:
+      - name: archlinux-container
+        image: localhost:5000/archlinux-app:latest
+        imagePullPolicy: Always
+        command: ["/bin/bash", "-c", "/app/start.sh"]
+        volumeMounts:
+        - name: host-volume
+          mountPath: /hostPath
+      restartPolicy: Never
+      volumes:
+      - name: host-volume
+        hostPath:
+          path: /hostPath
+  backoffLimit: 4
